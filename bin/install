@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -e
+
+# --- Check Node.js & npm version ---
+REQUIRED_NODE="20.17.0"
+REQUIRED_NPM="10.0.0"
+
+CURRENT_NODE=$(node -v 2>/dev/null || echo "not found")
+CURRENT_NPM=$(npm -v 2>/dev/null || echo "not found")
+
+echo "Current Node.js: $CURRENT_NODE"
+echo "Current npm:     $CURRENT_NPM"
+echo "Required Node.js >= $REQUIRED_NODE"
+echo "Required npm    >= $REQUIRED_NPM"
+
+# Compare version
+version_ge() {
+  [ "$(printf '%s\n' "$1" "$2" | sort -V | head -n1)" = "$2" ]
+}
+
+# Check Node.js
+if [[ "$CURRENT_NODE" == "not found" ]]; then
+  echo "Error: Node.js not found. Please install Node.js >= $REQUIRED_NODE"
+  exit 1
+fi
+
+if ! version_ge "${CURRENT_NODE#v}" "$REQUIRED_NODE"; then
+  echo "Error: Node.js version too low. Found $CURRENT_NODE, need >= $REQUIRED_NODE"
+  exit 1
+fi
+
+# Check npm
+if [[ "$CURRENT_NPM" == "not found" ]]; then
+  echo "Error: npm not found. Please install npm >= $REQUIRED_NPM"
+  exit 1
+fi
+
+if ! version_ge "$CURRENT_NPM" "$REQUIRED_NPM"; then
+  echo "Error: npm version too low. Found $CURRENT_NPM, need >= $REQUIRED_NPM"
+  exit 1
+fi
+
+echo "Version check passed"
+
+# --- Install dependencies ---
+npm install --save-dev typescript
+npm install
+npm install -g dotenv-cli

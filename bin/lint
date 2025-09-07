@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -e
+
+npm run lint
+
+npx tsc --noEmit
+
+npx prettier --write "**/*.{ts,tsx,jsx,json, md}"
+
+npm run test --if-present

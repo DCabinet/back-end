@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -e
+
+# Check if --clear-cache argument is provided
+CLEAR_CACHE=false
+for arg in "$@"; do
+  if [ "$arg" == "--clear-cache" ]; then
+    CLEAR_CACHE=true
+    break
+  fi
+done
+
+# Check if dist folder exists, if not create it
+if [ "$CLEAR_CACHE" = true ]; then
+  echo "Clearing cache and dist folder..."
+  rm -rf dist
+  # If you have specific cache directories, clear them here
+  # For example: rm -rf .cache
+fi
+
+# Copy assets
+npx copyfiles -u 1 "./assets/**/*" dist/assets
+
+# Start the development server with environment variables
+npx dotenv -e .env -- npm run start:debug

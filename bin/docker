@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -e
+
+if [ $# -eq 0 ]; then
+  echo "Usage: $0 {up|down}"
+  exit 1
+fi
+
+COMMAND=$1
+
+case "$COMMAND" in
+  up)
+    docker compose -f docker/docker-compose.yaml --env-file docker/.env.local -p d-cabinet up -d
+    ;;
+  down)
+    docker compose -f docker/docker-compose.yaml --env-file docker/.env.local -p d-cabinet down -v
+    rm -rf docker/data/
+    ;;
+  *)
+    echo "Unknown command: $COMMAND"
+    echo "Usage: $0 {up|down}"
+    exit 1
+    ;;
+esac

@@ -1,0 +1,20 @@
+{
+   "files.watcherExclude": {
+      "**/node_modules/**": true,
+      "**/dist/**": true,
+      "**/build/**": true,
+      "**/.git/**": true,
+      "**/.next/**": true,
+      "**/.cache/**": true,
+      "**/.dist/**": true
+   },
+   "typescript.tsserver.maxTsServerMemory": 4096,
+   "typescript.tsserver.watchOptions": {
+      "watchFile": "useFsEvents",
+      "watchDirectory": "useFsEvents",
+      "fallbackPolling": "dynamicPriority"
+   },
+   "typescript.enablePromptUseWorkspaceTsdk": true,
+   "typescript.preferences.includePackageJsonAutoImports": "off",
+   "javascript.suggest.autoImports": false
+}
