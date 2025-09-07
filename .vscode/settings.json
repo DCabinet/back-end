@@ -1,12 +1,11 @@
 {
    "files.watcherExclude": {
       "**/node_modules/**": true,
-      "**/dist/**": true,
       "**/build/**": true,
       "**/.git/**": true,
-      "**/.next/**": true,
+      "**/bin/**": true,
       "**/.cache/**": true,
-      "**/.dist/**": true
+      "**/dist/**": true
    },
    "typescript.tsserver.maxTsServerMemory": 4096,
    "typescript.tsserver.watchOptions": {
